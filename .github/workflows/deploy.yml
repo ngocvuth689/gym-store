@@ -34,11 +34,14 @@ jobs:
       - name: Build Angular App
         run: ng build --configuration production --base-href "/gym-store/"
 
+      - name: 🆔 Set Git identity
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
       # Step 6: Deploy lên GitHub Pages
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           personal_token: ${{ secrets.GITHUB_TOKEN }} # Sử dụng token mặc định từ GitHub
           publish_dir: ./dist/gym-store # Chỉ định thư mục chứa file đã build để deploy
-          user_name: "ngocvuth689" # Tên người dùng commit
-          user_email: "github-actions[bot]@users.noreply.github.com" # Email của bot GitHub Actions
