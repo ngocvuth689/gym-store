@@ -38,6 +38,6 @@ jobs:
 
       - name: 🚀 Deploy to GitHub Pages
         run: |
-          npx angular-cli-ghpages --dir=dist/gym-store --no-silent --verbose
+          npx angular-cli-ghpages --dir=dist/gym-store --no-silent
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
