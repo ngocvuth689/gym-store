@@ -3,7 +3,7 @@ name: Build and Deploy Angular App to GitHub Pages
 on:
   push:
     branches:
-      - main # Thay "main" bằng tên nhánh bạn muốn trigger deploy khi push code vào
+      - main # Trigger deploy khi có thay đổi trên nhánh main
 
 jobs:
   build:
@@ -13,6 +13,8 @@ jobs:
       # Step 1: Check out mã nguồn từ GitHub
       - name: Checkout code
         uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }} # Đảm bảo sử dụng token mặc định từ GitHub
 
       # Step 2: Cài đặt Node.js
       - name: Set up Node.js
