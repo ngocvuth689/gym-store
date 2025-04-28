@@ -27,7 +27,7 @@ jobs:
       - name: Build Angular App
         run: |
           npm install -g @angular/cli
-          ng build --configuration production --base-href "https://<your-username>.github.io/<repo-name>/"
+          ng build --configuration production --base-href "https://ngocvuth689.github.io/gym-store/"
 
       - name: Deploy to GitHub Pages
         run: |
