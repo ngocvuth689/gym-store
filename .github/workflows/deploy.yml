@@ -1,43 +1,38 @@
-name: Deploy Angular App to GitHub Pages
+name: Build and Deploy Angular App to GitHub Pages
 
 on:
   push:
     branches:
-      - main
-
-permissions:
-  contents: write
+      - main # Thay "main" bằng tên nhánh bạn muốn trigger deploy khi push code vào
 
 jobs:
-  build-and-deploy:
-    runs-on: ubuntu-latest
+  build:
+    runs-on: ubuntu-latest # Chạy trên môi trường Ubuntu mới nhất
 
     steps:
-      - name: 📥 Checkout source
+      # Step 1: Check out mã nguồn từ GitHub
+      - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: 🔧 Setup Node.js v16
+      # Step 2: Cài đặt Node.js
+      - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 16.20.0
+          node-version: "16"
 
-      - name: 📦 Install dependencies
-        run: npm ci
+      # Step 3: Cài đặt các dependencies của dự án
+      - name: Install dependencies
+        run: npm install
 
-      - name: ⚙️ Install Angular CLI
-        run: npm install -g @angular/cli@14
+      # Step 4: Build ứng dụng Angular với cấu hình production
+      - name: Build Angular App
+        run: ng build --configuration production --base-href "/gym-store/"
 
-      - name: 🛠️ Build project
-        run: |
-          ng build --configuration production --base-href "https://ngocvuth689.github.io/gym-store/"
-
-      - name: 🆔 Set Git identity
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-
-      - name: 🚀 Deploy to GitHub Pages
-        run: |
-          npx angular-cli-ghpages --dir=dist/gym-store --no-silent
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # Step 5: Deploy lên GitHub Pages
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          personal_token: ${{ secrets.GITHUB_TOKEN }} # Sử dụng token mặc định từ GitHub
+          publish_dir: ./dist/gym-store # Chỉ định thư mục chứa file đã build để deploy
+          user_name: "github-actions[bot]" # Tên người dùng commit
+          user_email: "github-actions[bot]@users.noreply.github.com" # Email của bot GitHub Actions
