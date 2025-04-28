@@ -18,17 +18,21 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: "16"
+          node-version: "16" # Hoặc phiên bản Node.js phù hợp với dự án của bạn
 
-      # Step 3: Cài đặt các dependencies của dự án
+      # Step 3: Cài đặt Angular CLI
+      - name: Install Angular CLI
+        run: npm install -g @angular/cli@14.2.13 # Cài đặt Angular CLI phiên bản 14.2.13
+
+      # Step 4: Cài đặt các dependencies của dự án
       - name: Install dependencies
         run: npm install
 
-      # Step 4: Build ứng dụng Angular với cấu hình production
+      # Step 5: Build ứng dụng Angular với cấu hình production
       - name: Build Angular App
         run: ng build --configuration production --base-href "/gym-store/"
 
-      # Step 5: Deploy lên GitHub Pages
+      # Step 6: Deploy lên GitHub Pages
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
