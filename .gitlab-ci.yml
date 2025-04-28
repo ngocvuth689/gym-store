@@ -1,0 +1,13 @@
+# .gitlab-ci.yml
+image: node:14
+
+pages:
+  script:
+    - npm ci
+    - npm run build -- --configuration production --base-href /gym-store/
+    - mv dist/gym-store public
+  artifacts:
+    paths:
+      - public
+  only:
+    - develop
