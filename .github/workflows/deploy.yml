@@ -40,5 +40,5 @@ jobs:
         with:
           personal_token: ${{ secrets.GITHUB_TOKEN }} # Sử dụng token mặc định từ GitHub
           publish_dir: ./dist/gym-store # Chỉ định thư mục chứa file đã build để deploy
-          user_name: "github-actions[bot]" # Tên người dùng commit
+          user_name: "ngocvuth689" # Tên người dùng commit
           user_email: "github-actions[bot]@users.noreply.github.com" # Email của bot GitHub Actions
